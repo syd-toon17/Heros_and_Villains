@@ -4,4 +4,4 @@ from rest_framework.response import Response
 @api_view(['GET'])
 def super_types_list(request):
     
-    def Response('ok')
+    return Response('ok')
