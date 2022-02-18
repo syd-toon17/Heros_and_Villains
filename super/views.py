@@ -4,12 +4,14 @@ from rest_framework.response import Response
 from  rest_framework import status
 from .serializers import SuperSerializer
 from .models import Super
+from super_types.models import Super_Types
 
 
 @api_view(['GET', 'POST'])
 def super_list(request):
     if request.method == 'GET':
         super = Super.objects.all()
+        super_type = Super_Types.objects.all()
         serializer = SuperSerializer(super, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
