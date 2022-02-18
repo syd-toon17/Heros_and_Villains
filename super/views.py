@@ -3,6 +3,6 @@ from rest_framework.response import Response
 
 
 @api_view(['GET'])
-def supers_list(request):
+def super_list(request):
     
     return Response('ok')
