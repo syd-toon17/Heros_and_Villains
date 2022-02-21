@@ -12,13 +12,43 @@ from super_types.models import Super_Types
 @api_view(['GET', 'POST'])
 def super_list(request):
     if request.method == 'GET':
-        super = Super.objects.all()
-        hero = Super_Types.objects.filter(pk=2)
-        villain = Super_Types.objects.filter(pk=2)
-        serializer = SuperSerializer(super, hero, villain, many=True)
+        type_param = request.query_params.get('type')
+        if type_param == "heroes":
+            super = Super.objects.filter(super_type_id=1)
+        elif type_param == "villains":
+            super = Super.objects.filter(super_type_id=2)
+        else:
+            super = Super.objects.all()
+        serializer = SuperSerializer(super, many=True)
+        print(serializer)
         return Response(serializer.data)
+
     elif request.method == 'POST':
         serializer = SuperSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+# Check for param = "type" [type=""]
+# Condition: upon type
+# Filter hero or villians
+# Esle ALL (super)
+# return 
+
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def super_detail(request, pk):
+#     super = get_object_or_404(Super, pk=pk)
+#     if request.meathod == 'GET':
+#         serializer = SuperSerializer(super);
+#         return Response(serializer.data)
+#     elif request.method == 'PUT':
+#         serializer = SuperSerializer(super, data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#     elif request.method == 'DELETE':
+#         super.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
