@@ -96,7 +96,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/supers/1/",
+							"raw": "http://127.0.0.1:8000/api/super/1/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -107,7 +107,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"supers",
+								"super",
 								"1",
 								""
 							]
