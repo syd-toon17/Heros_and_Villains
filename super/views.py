@@ -20,35 +20,28 @@ def super_list(request):
         else:
             super = Super.objects.all()
         serializer = SuperSerializer(super, many=True)
-        print(serializer)
         return Response(serializer.data)
-
     elif request.method == 'POST':
         serializer = SuperSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-# Check for param = "type" [type=""]
-# Condition: upon type
-# Filter hero or villians
-# Esle ALL (super)
-# return 
 
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def super_detail(request, pk):
-#     super = get_object_or_404(Super, pk=pk)
-#     if request.meathod == 'GET':
-#         serializer = SuperSerializer(super);
-#         return Response(serializer.data)
-#     elif request.method == 'PUT':
-#         serializer = SuperSerializer(super, data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
-#     elif request.method == 'DELETE':
-#         super.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
+@api_view(['GET', 'PUT', 'DELETE'])
+def super_detail(request, pk):
+    super = get_object_or_404(Super, pk=pk)
+    if request.method == 'GET':
+        serializer = SuperSerializer(super);
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = SuperSerializer(super, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        super.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
